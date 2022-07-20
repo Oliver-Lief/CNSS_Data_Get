@@ -4,7 +4,7 @@
 import os
 
 # 获取目标文件夹的路径
-meragefiledir = os.getcwd() + '\\txt'
+meragefiledir = os.getcwd()
 # 获取当前文件夹中的文件名称列表
 filenames = os.listdir(meragefiledir)
 # 打开当前目录下的result.txt文件，如果没有则创建

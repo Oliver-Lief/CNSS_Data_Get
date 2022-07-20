@@ -20,7 +20,7 @@ print(request_url)
 for i in range(1,27):
     data = requests.get(request_url[i-1])
     data_price = json.loads(data.text)
-    with open('D:\py prj\CNSS\json\%d.json'%i, 'w') as f:
+    with open('%d.json'%i, 'w') as f:
         json.dump(data_price, f)
 
 print("生成完毕！可关闭窗口执行下一步")

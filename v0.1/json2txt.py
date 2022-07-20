@@ -8,7 +8,7 @@ def delete(list):
             resultList.append(item)
     return resultList
 def readjson(num):
-    with open("D:\py prj\CNSS\json\%d.json"%num, 'r') as load_f:
+    with open("%d.json"%num, 'r') as load_f:
         load_dict = json.load(load_f)
         D = load_dict[0]["data"]
     return D
@@ -40,13 +40,13 @@ def process(Data):
     return b
 def save(b,n):
     #保存为txt
-    file = open('D:\\py prj\\CNSS\\txt\\%d.txt'%n, 'w')
+    file = open('%d.txt'%n, 'w')
     for i in range(len(b)):
         # s = str(a[i]).replace('{', '').replace('}', '').replace("'", '').replace(':', ',') + '\n'
         s = str(b[i]).replace("'",'').replace('[','').replace(']','') + '\n'
         file.write(s)
     file.close()
-with open("D:\\py prj\\CNSS\\json\\1.json", 'r') as load_f:
+with open("1.json", 'r') as load_f:
     load_dict = json.load(load_f)
     # print(load_dict)
     #打印地点
