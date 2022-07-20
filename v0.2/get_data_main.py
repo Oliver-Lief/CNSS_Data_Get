@@ -6,9 +6,6 @@ import requests
 import json
 import time
 
-from sklearn.preprocessing import PolynomialFeatures
-
-
 def delete(list):
     resultList = []
     for item in list:
@@ -17,8 +14,8 @@ def delete(list):
     return resultList
 
 
-def readjson(num, file):
-    with open(file+"%d.json" % num, 'r') as load_f:
+def readjson(number, filepath):
+    with open(filepath+"%d.json" % number, 'r') as load_f:
         load_dict = json.load(load_f)
         D = load_dict[0]["data"]
     return D
@@ -52,15 +49,15 @@ def process(Data):
     return b
 
 
-def save(b, n, Name, file):
+def save(arr, number, Name, filepath):
     # 保存为txt
-    file = open(file+Name+'%d.txt' % n, 'w')
-    for i in range(len(b)):
-        s = str(b[i]).replace("'", '').replace('[', '').replace(']', '') + '\n'
+    file = open(filepath+Name+'%d.txt' % number, 'w')
+    for i in range(len(arr)):
+        s = str(arr[i]).replace("'", '').replace('[', '').replace(']', '') + '\n'
         file.write(s)
     file.close()
 
-
+# input the year and the month you wanna
 year = int(input('year:'))
 month = int(input('month:'))
 
@@ -80,11 +77,13 @@ for i in range(number):
     # time.sleep(r)
     print("{0}号生成完成".format(i+1))
 # print(request_url)
-meragefiledir = os.path.split(os.path.realpath(sys.argv[0]))[0]
+meragefiledir = os.path.split(os.path.realpath(__file__))[0]
+# print(meragefiledir)
+
 file1 = meragefiledir+'\\'+'json'+'\\'
 file2 = meragefiledir+'\\'+'txt'+'\\'
-for i in range(number):
-    data = requests.get(request_url[i])
+for i in range(1,number+1):
+    data = requests.get(request_url[i-1])
     data_price = json.loads(data.text)
     with open(file1+'%d.json' % i, 'w') as f:
         json.dump(data_price, f)
@@ -97,10 +96,13 @@ with open(file1+"1.json", 'r') as load_f:
     # print("地点：", name)
     Data = load_dict[0]["data"]
 
+D1=readjson(1,file1)
 P1 = process(Data)
-save(P1, 0, name, file2)
+save(P1, 1, name, file2)
 
-for i in range(1, number+1):
+for i in range(2, number+1):
     Di = readjson(i, file1)
     Pi = process(Di)
     save(Pi, i, name, file2)
+
+print('save successfully!!')
